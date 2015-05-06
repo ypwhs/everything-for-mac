@@ -37,12 +37,15 @@ class ViewController: NSViewController, NSTextFieldDelegate{
         task.standardOutput = pipe
         task.launch()
         
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        var filehandle = pipe.fileHandleForReading
+        let data = filehandle.readDataOfLength(2048)
         let output: String = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
         //println(output)
         textview.string = output
         
     }
+    
+    
     
     @IBOutlet var textview: NSTextView!
     
