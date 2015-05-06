@@ -8,20 +8,49 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTextFieldDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        
     }
-
+    
     override var representedObject: AnyObject? {
         didSet {
         // Update the view, if already loaded.
         }
     }
-
+    @IBOutlet weak var search: NSTextField!
+    
+    
+    override func controlTextDidChange(obj: NSNotification) {
+        var filename=search.stringValue
+        println(filename)
+        
+        let task = NSTask()
+        task.launchPath = "locate"
+        task.arguments = [filename]
+        
+        let pipe = NSPipe()
+        task.standardOutput = pipe
+        task.launch()
+        
+//        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+//        let output: String = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+//        println(output)
+//        textview.string = output
+        
+    }
+    
+    @IBOutlet var textview: NSTextView!
+    
+    override func viewDidDisappear() {
+//        abort()
+    }
+    
+    
 
 }
 
