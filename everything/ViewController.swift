@@ -30,17 +30,17 @@ class ViewController: NSViewController, NSTextFieldDelegate{
         println(filename)
         
         let task = NSTask()
-        task.launchPath = "locate"
+        task.launchPath = "/usr/bin/locate"
         task.arguments = [filename]
         
         let pipe = NSPipe()
         task.standardOutput = pipe
         task.launch()
         
-//        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-//        let output: String = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-//        println(output)
-//        textview.string = output
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output: String = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        //println(output)
+        textview.string = output
         
     }
     
